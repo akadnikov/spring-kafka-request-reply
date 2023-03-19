@@ -15,13 +15,15 @@ import java.util.concurrent.TimeUnit;
 @Service
 @Slf4j
 public class KafkaService {
+
     @Autowired
     private ReplyingKafkaTemplate<String, Object, Object> template;
+
     @Value("${myproject.send-topics}")
     private String SEND_TOPICS;
 
     public Object kafkaRequestReply(Object request) throws Exception {
-        ProducerRecord<String, Object> record = new ProducerRecord<>(SEND_TOPICS, request);
+        ProducerRecord<String, Object> record = new ProducerRecord<>(SEND_TOPICS, MyMessageBuilder.createRequest(request));
         RequestReplyFuture<String, Object, Object> replyFuture = template.sendAndReceive(record);
         SendResult<String, Object> sendResult = replyFuture.getSendFuture().get(10, TimeUnit.SECONDS);
         ConsumerRecord<String, Object> consumerRecord = replyFuture.get(10, TimeUnit.SECONDS);

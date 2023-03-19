@@ -14,8 +14,8 @@ class SpringKafkaClientApplicationTests {
 
 	@Test
 	void kafkaRequestReply_test() throws Exception {
-		String request = "abcd123";
-		String mustResponse = "321dcba";
+		String request = "{\"name\" : \"abcd123\"}";
+		String mustResponse = "{\"name\" : \"321dcba\"}";
 		Object sendReply = kafkaService.kafkaRequestReply(request);
 		String responseString = String.valueOf(sendReply);
 		assertEquals(mustResponse, responseString);
