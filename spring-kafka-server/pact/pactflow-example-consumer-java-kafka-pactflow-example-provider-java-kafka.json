@@ -8,7 +8,7 @@
         "testname": "com.techgalery.springkafkaclient.PactTest.test(SynchronousMessages)"
       },
       "description": "a test message",
-      "key": "",
+      "key": "c13464bf",
       "pending": false,
       "request": {
         "contents": {
@@ -65,7 +65,7 @@
   ],
   "metadata": {
     "pact-jvm": {
-      "version": "4.3.19"
+      "version": "4.4.8"
     },
     "pactSpecification": {
       "version": "4.0"
