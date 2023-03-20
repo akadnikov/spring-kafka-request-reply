@@ -20,10 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 @SpringBootTest
 @PactTestFor(providerName = "pactflow-example-provider-java-kafka", providerType = ProviderType.SYNCH_MESSAGE, pactVersion = PactSpecVersion.V4)
 public class PactTest {
-
-//    @Autowired
-//    KafkaService kafkaService;
-
+    
     @Pact(consumer = "pactflow-example-consumer-java-kafka")
     V4Pact createPact(SynchronousMessagePactBuilder builder) {
 
