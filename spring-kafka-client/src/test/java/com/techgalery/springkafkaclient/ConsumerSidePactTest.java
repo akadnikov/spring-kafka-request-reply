@@ -55,7 +55,8 @@ public class ConsumerSidePactTest {
     }
 
     private byte[] convertToKafkaBytes(V4Interaction.AsynchronousMessage message) {
-        return message.contentsAsBytes();
+        return message.getContents().getContents().getValue();
+        //return message.contentsAsBytes(); //доступно в новых версиях
     }
 
     private void expectApplicationToConsumeKafkaBytesSuccessfully(byte[] kafkaBytes) {
