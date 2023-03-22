@@ -50,7 +50,6 @@ public class KafkaConfig {
 
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, Product> kafkaListenerContainerFactory() {
-
         ConcurrentKafkaListenerContainerFactory<String, Product> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(cf());
         factory.setReplyTemplate(replyTemplate());

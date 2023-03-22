@@ -1,11 +1,11 @@
 {
   "consumer": {
-    "name": "pactflow-example-consumer-java-kafka"
+    "name": "kafka-client"
   },
   "interactions": [
     {
       "comments": {
-        "testname": "com.techgalery.springkafkaclient.PactTest.test(AsynchronousMessage)"
+        "testname": "com.techgalery.springkafkaclient.ConsumerSidePactTest.test(AsynchronousMessage)"
       },
       "contents": {
         "content": {
@@ -44,6 +44,6 @@
     }
   },
   "provider": {
-    "name": "pactflow-example-provider-java-kafka"
+    "name": "kafka-server"
   }
 }

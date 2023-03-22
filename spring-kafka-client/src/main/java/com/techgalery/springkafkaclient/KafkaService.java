@@ -24,7 +24,7 @@ public class KafkaService {
     private String SEND_TOPICS;
 
     public Product kafkaRequestReply(Product request) throws Exception {
-        ProducerRecord<String, Product> record = new ProducerRecord<>(SEND_TOPICS, MyMessageBuilder.createRequest(request));
+        ProducerRecord<String, Product> record = new ProducerRecord<>(SEND_TOPICS, request);
         RequestReplyFuture<String, Product, Product> replyFuture = template.sendAndReceive(record);
         SendResult<String, Product> sendResult = replyFuture.getSendFuture().get(60, TimeUnit.SECONDS);
         ConsumerRecord<String, Product> consumerRecord = replyFuture.get(60, TimeUnit.SECONDS);
