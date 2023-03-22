@@ -1,6 +1,8 @@
 spring:
   kafka:
     bootstrap-servers: localhost:9092
+  main:
+    web-application-type: none
 myproject:
   send-topics: my-topics
   reply-topics: my-topics-reply

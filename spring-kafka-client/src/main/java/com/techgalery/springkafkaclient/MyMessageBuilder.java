@@ -1,15 +1,10 @@
 package com.techgalery.springkafkaclient;
 
-import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.producer.ProducerRecord;
-import org.springframework.kafka.requestreply.RequestReplyFuture;
-import org.springframework.kafka.support.SendResult;
-
-import java.util.concurrent.TimeUnit;
+import com.techgalery.model.Product;
 
 public class MyMessageBuilder {
 
-    public static Object createRequest(Object request) throws Exception {
+    public static Product createRequest(Product request) throws Exception {
         return request;
     }
 }

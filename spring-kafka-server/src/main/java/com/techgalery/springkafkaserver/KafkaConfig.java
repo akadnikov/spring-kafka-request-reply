@@ -1,4 +1,4 @@
-package com.techgalery.springkafkaclient;
+package com.techgalery.springkafkaserver;
 
 import com.techgalery.model.Product;
 import lombok.extern.slf4j.Slf4j;
@@ -10,49 +10,22 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
-import org.springframework.kafka.core.ConsumerFactory;
-import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
-import org.springframework.kafka.core.DefaultKafkaProducerFactory;
-import org.springframework.kafka.core.ProducerFactory;
-import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
-import org.springframework.kafka.requestreply.ReplyingKafkaTemplate;
+import org.springframework.kafka.core.*;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 
-import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
 @Slf4j
 public class KafkaConfig {
-    @Value("${myproject.reply-topics}")
-    private String REPLY_TOPICS;
 
     @Value("${myproject.consumer-group}")
     private String CONSUMER_GROUPS;
 
     @Value("${spring.kafka.bootstrap-servers}")
     private String BOOTSTRAP_SERVERS;
-
-    @Bean //register and configure replying kafka template
-    public ReplyingKafkaTemplate<String, Product, Product> replyingTemplate(
-            ProducerFactory<String, Product> pf,
-            ConcurrentMessageListenerContainer<String, Product> repliesContainer) {
-        ReplyingKafkaTemplate<String, Product, Product> replyTemplate = new ReplyingKafkaTemplate<>(pf, repliesContainer);
-        replyTemplate.setDefaultReplyTimeout(Duration.ofSeconds(60));
-        replyTemplate.setSharedReplyTopic(true);
-        return replyTemplate;
-    }
-
-    @Bean //register ConcurrentMessageListenerContainer bean
-    public ConcurrentMessageListenerContainer<String, Product> repliesContainer(
-            ConcurrentKafkaListenerContainerFactory<String, Product> cf) {
-        ConcurrentMessageListenerContainer<String, Product> repliesContainer = cf.createContainer(REPLY_TOPICS);
-        //repliesContainer.getContainerProperties().setGroupId(CONSUMER_GROUPS);
-        repliesContainer.setAutoStartup(false);
-        return repliesContainer;
-    }
 
     @Bean
     public ConsumerFactory<String, Product> cf() {
@@ -77,8 +50,16 @@ public class KafkaConfig {
 
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, Product> kafkaListenerContainerFactory() {
+
         ConcurrentKafkaListenerContainerFactory<String, Product> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(cf());
+        factory.setReplyTemplate(replyTemplate());
         return factory;
     }
+
+    @Bean
+    public KafkaTemplate<String, Product> replyTemplate() {
+        return new KafkaTemplate<>(pf());
+    }
+
 }

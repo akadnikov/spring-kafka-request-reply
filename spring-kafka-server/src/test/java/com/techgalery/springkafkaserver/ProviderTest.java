@@ -1,10 +1,8 @@
 package com.techgalery.springkafkaserver;
 
 import au.com.dius.pact.core.model.Interaction;
-import au.com.dius.pact.core.model.Pact;
 import au.com.dius.pact.provider.MessageAndMetadata;
 import au.com.dius.pact.provider.PactVerifyProvider;
-import au.com.dius.pact.provider.ProviderVerifier;
 import au.com.dius.pact.provider.junit5.MessageTestTarget;
 import au.com.dius.pact.provider.junit5.PactVerificationContext;
 import au.com.dius.pact.provider.junit5.PactVerificationInvocationContextProvider;
@@ -21,8 +19,8 @@ import org.springframework.messaging.Message;
 
 @Provider("pactflow-example-provider-java-kafka")
 @PactFolder("pact")
-public class ProductsKafkaProducerTest {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ProductsKafkaProducerTest.class);
+public class ProviderTest {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProviderTest.class);
 
     Interaction interaction;
 
@@ -42,8 +40,8 @@ public class ProductsKafkaProducerTest {
     @PactVerifyProvider("a test message")
     public MessageAndMetadata messageRecievedAndCreated() {
 
-        var req = MyMessageHandler.getRequest(interaction.asSynchronousMessages().getRequest().getContents().valueAsString());
-        Message<String> message = MyMessageBuilder.createResponse(req);
+        //var req = MyMessageHandler.getRequest(interaction.asSynchronousMessages().getRequest().getContents().valueAsString());
+        Message<String> message = MyMessageBuilder.createResponse("abcd123");
         return generateMessageAndMetadata(message);
     }
 

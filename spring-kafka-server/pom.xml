@@ -60,6 +60,11 @@
 			<artifactId>junit5spring</artifactId>
 			<version>4.5.3</version>
 		</dependency>
+		<dependency>
+			<groupId>au.com.dius.pact.consumer</groupId>
+			<artifactId>junit5</artifactId>
+			<version>4.5.3</version>
+		</dependency>
     </dependencies>
 
 	<build>

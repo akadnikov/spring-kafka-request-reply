@@ -1,15 +1,15 @@
 {
   "consumer": {
-    "name": "pactflow-example-consumer-java-kafka"
+    "name": "pactflow-example-provider-java-kafka"
   },
   "interactions": [
     {
       "comments": {
-        "testname": "com.techgalery.springkafkaclient.PactTest.test(AsynchronousMessage)"
+        "testname": "com.techgalery.springkafkaserver.ConsumerTest.test(AsynchronousMessage)"
       },
       "contents": {
         "content": {
-          "name": "abcd123"
+          "name": "123abcd"
         },
         "contentType": "application/json",
         "encoded": false
@@ -44,6 +44,6 @@
     }
   },
   "provider": {
-    "name": "pactflow-example-provider-java-kafka"
+    "name": "pactflow-example-consumer-java-kafka"
   }
 }

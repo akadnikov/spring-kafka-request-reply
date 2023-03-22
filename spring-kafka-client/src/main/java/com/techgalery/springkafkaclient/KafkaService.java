@@ -1,5 +1,6 @@
 package com.techgalery.springkafkaclient;
 
+import com.techgalery.model.Product;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -17,16 +18,16 @@ import java.util.concurrent.TimeUnit;
 public class KafkaService {
 
     @Autowired
-    private ReplyingKafkaTemplate<String, Object, Object> template;
+    private ReplyingKafkaTemplate<String, Product, Product> template;
 
     @Value("${myproject.send-topics}")
     private String SEND_TOPICS;
 
-    public Object kafkaRequestReply(Object request) throws Exception {
-        ProducerRecord<String, Object> record = new ProducerRecord<>(SEND_TOPICS, MyMessageBuilder.createRequest(request));
-        RequestReplyFuture<String, Object, Object> replyFuture = template.sendAndReceive(record);
-        SendResult<String, Object> sendResult = replyFuture.getSendFuture().get(10, TimeUnit.SECONDS);
-        ConsumerRecord<String, Object> consumerRecord = replyFuture.get(10, TimeUnit.SECONDS);
+    public Product kafkaRequestReply(Product request) throws Exception {
+        ProducerRecord<String, Product> record = new ProducerRecord<>(SEND_TOPICS, MyMessageBuilder.createRequest(request));
+        RequestReplyFuture<String, Product, Product> replyFuture = template.sendAndReceive(record);
+        SendResult<String, Product> sendResult = replyFuture.getSendFuture().get(60, TimeUnit.SECONDS);
+        ConsumerRecord<String, Product> consumerRecord = replyFuture.get(60, TimeUnit.SECONDS);
         return consumerRecord.value();
     }
 }
